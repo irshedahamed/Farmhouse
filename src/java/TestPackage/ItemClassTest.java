@@ -8,14 +8,17 @@ package TestPackage;
 import General.Items;
 import com.google.gson.Gson;
 import java.sql.SQLException;
+import java.util.List;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author irshed
  */
 public class ItemClassTest {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ParseException {
         Items i = new Items();
         i.setFarmerid("farmer2");
         i.setCategoryid("1");
@@ -27,5 +30,7 @@ public class ItemClassTest {
         Gson g = new Gson();
         String json = g.toJson(i);
         System.out.println(json);
+        
+        
     }
 }

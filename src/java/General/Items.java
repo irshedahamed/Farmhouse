@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -111,6 +113,25 @@ public class Items {
         return false;
     }
 
-    
+    public static List<Items> getItemById(String farmerid) throws SQLException{
+        List<Items> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        conn = dbcon.getConnection("system");
+        String sql = "select * from item_info where id like ?";
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, farmerid);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()) {
+            Items i = new Items();
+            i.setFarmerid(farmerid);
+            i.setCategoryid(rs.getString("cat_id"));
+            i.setItem(rs.getString("item"));
+            i.setQuantity(rs.getString("quantity"));
+            i.setPrice(rs.getString("ppkg"));
+            list.add(i);
+        }
+        return list;
+    }
 
 }
