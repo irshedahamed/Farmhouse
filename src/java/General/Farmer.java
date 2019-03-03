@@ -113,6 +113,7 @@ public class Farmer {
         conn = dbcon.getConnection("system");
         String sql = "select * from farmer_details where id=?";
         stmt = conn.prepareStatement(sql);
+        stmt.setString(1, id);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             f.setId(id);
