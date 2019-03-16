@@ -106,5 +106,30 @@ public class User {
         return user;
     }
     
-    
+     public static User getUserbyId(String id) throws SQLException {
+        User f = new User();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        conn = dbcon.getConnection("system");
+        String sql = "select * from user_details where id=?";
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, id);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            f.setId(id);
+            f.setName(rs.getString("name"));
+            f.setCity(rs.getString("city"));
+            f.setMailid(rs.getString("mailid"));
+            f.setPhno(rs.getString("phno"));
+            f.setReviewid(rs.getString("reviewid"));
+        }
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (rs != null) {
+            rs.close();
+        }
+
+        return f;
+    }
 }

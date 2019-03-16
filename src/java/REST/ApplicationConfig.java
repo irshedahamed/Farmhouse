@@ -31,10 +31,13 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(REST.AuthenticateResource.class);
         resources.add(REST.FetchDisplayResource.class);
+        resources.add(REST.FetchFarmByIdResource.class);
         resources.add(REST.FetchItemResource.class);
+        resources.add(REST.FetchUserByIdResource.class);
         resources.add(REST.InsertFarmerResource.class);
         resources.add(REST.InsertItemResource.class);
         resources.add(REST.InsertUserResource.class);
+        resources.add(REST.SetReviewResource.class);
     }
     
 }

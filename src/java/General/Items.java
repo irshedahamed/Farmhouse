@@ -24,7 +24,16 @@ public class Items {
     private String item;
     private String quantity;
     private String price;
+    private String date;
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
     public String getQuantity() {
         return quantity;
     }
@@ -71,22 +80,24 @@ public class Items {
         PreparedStatement stmt = null;
         conn = dbcon.getConnection("system");
         if (Items.isItemAvailable(obj.getFarmerid(), obj.getCategoryid(),obj.getItem())) {
-            String sql = "update item_info set quantity=? , ppkg=? where cat_id=? and id=? and item=?";
+            String sql = "update item_info set quantity=? , ppkg=? , date=? where cat_id=? and id=? and item=?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, obj.getQuantity());
             stmt.setString(2, obj.getPrice());
-            stmt.setString(3, obj.getCategoryid());
-            stmt.setString(4, obj.getFarmerid());
-            stmt.setString(5, obj.getItem());
+            stmt.setString(3, obj.getDate());
+            stmt.setString(4, obj.getCategoryid());
+            stmt.setString(5, obj.getFarmerid());
+            stmt.setString(6, obj.getItem());
             stmt.executeUpdate();
         } else {
-            String sql = "insert into item_info values(?,?,?,?,?)";
+            String sql = "insert into item_info values(?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, obj.getFarmerid());
             stmt.setString(2, obj.getCategoryid());
             stmt.setString(3, obj.getItem());
             stmt.setString(4, obj.getQuantity());
             stmt.setString(5, obj.getPrice());
+            stmt.setString(6, obj.getDate());
             stmt.executeUpdate();
         }
         if (stmt != null) {
@@ -107,7 +118,7 @@ public class Items {
         stmt.setString(3, item);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            System.out.println("TRue");
+            System.out.println("True");
             return true;
         }
         return false;
@@ -129,6 +140,7 @@ public class Items {
             i.setItem(rs.getString("item"));
             i.setQuantity(rs.getString("quantity"));
             i.setPrice(rs.getString("ppkg"));
+            i.setDate(rs.getString("date"));
             list.add(i);
         }
         return list;

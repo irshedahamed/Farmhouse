@@ -1,0 +1,64 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package REST;
+
+import General.Farmer;
+import java.sql.SQLException;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PUT;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+/**
+ * REST Web Service
+ *
+ * @author irshed
+ */
+@Path("SetReview")
+public class SetReviewResource {
+
+    @Context
+    private UriInfo context;
+
+    /**
+     * Creates a new instance of SetReviewResource
+     */
+    public SetReviewResource() {
+    }
+
+    /**
+     * Retrieves representation of an instance of REST.SetReviewResource
+     * @return an instance of java.lang.String
+     */
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJson(@Context HttpHeaders headers,String body) throws ParseException, SQLException {
+        String id,rev;
+        JSONParser parser = new JSONParser();
+        JSONObject obj = (JSONObject) parser.parse(body);
+        id =(String)obj.get("id");
+        rev = (String)obj.get("review");
+        Farmer.setReview(id, rev);
+        return "Updated";
+    }
+
+    /**
+     * PUT method for updating or creating an instance of SetReviewResource
+     * @param content representation for the resource
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void putJson(String content) {
+    }
+}

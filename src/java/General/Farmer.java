@@ -142,8 +142,31 @@ public class Farmer {
         stmt.setString(1, f.getReviewid());
         stmt.setString(2, f.getId());
         stmt.executeUpdate();
-        if(stmt!=null)
-            stmt.close();;
+        if (stmt != null) {
+            stmt.close();
+        };
+        return "Updated";
+    }
+
+    public static String setReview(String id, String review) throws SQLException {
+        int r1 = 0, r2 = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        conn = dbcon.getConnection("system");
+        Farmer f = Farmer.getFarmerbyId(id);
+        if(f.getReviewid()!=null)
+          r1 = Integer.valueOf(f.getReviewid());
+        r2 = Integer.valueOf(review);
+        r1 = (r1 + r2) / 2;
+        review = String.valueOf(r1);
+        String sql = "update farmer_details set reviewid=? where id=?";
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, review);
+        stmt.setString(2, f.getId());
+        stmt.executeUpdate();
+        if (stmt != null) {
+            stmt.close();
+        };
         return "Updated";
     }
 

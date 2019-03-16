@@ -18,12 +18,49 @@ import java.util.List;
  * @author irshed
  */
 public class UserDisplay {
+    private String farid;
     private String farname;
+    private String farlocation;
     private String item;
     private String quantity;
     private String price;
     private String phno;
+    private String date;
+    private String review;
+   
+    public String getFarid() {
+        return farid;
+    }
 
+    public void setFarid(String farid) {
+        this.farid = farid;
+    }
+
+    public String getFarlocation() {
+        return farlocation;
+    }
+
+    public void setFarlocation(String farlocation) {
+        this.farlocation = farlocation;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    
     public String getItem() {
         return item;
     }
@@ -77,11 +114,15 @@ public class UserDisplay {
             UserDisplay disp = new UserDisplay();
             String id =  rs.getString("id");
             Farmer f = Farmer.getFarmerbyId(id);
+            disp.setFarid(id);
+            disp.setFarlocation(f.getCity());
             disp.setFarname(f.getName());
             disp.setPhno(f.getPhno());
             disp.setItem(rs.getString("item"));
             disp.setQuantity(rs.getString("quantity"));
             disp.setPrice(rs.getString("ppkg"));
+            disp.setDate(rs.getString("date"));
+            disp.setReview(f.getReviewid());
             list.add(disp);
         }
         return list;
