@@ -87,14 +87,14 @@ public class Items {
             stmt.setString(3, obj.getDate());
             stmt.setString(4, obj.getCategoryid());
             stmt.setString(5, obj.getFarmerid());
-            stmt.setString(6, obj.getItem());
+            stmt.setString(6, obj.getItem().toLowerCase());
             stmt.executeUpdate();
         } else {
             String sql = "insert into item_info values(?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, obj.getFarmerid());
             stmt.setString(2, obj.getCategoryid());
-            stmt.setString(3, obj.getItem());
+            stmt.setString(3, obj.getItem().toLowerCase());
             stmt.setString(4, obj.getQuantity());
             stmt.setString(5, obj.getPrice());
             stmt.setString(6, obj.getDate());
@@ -144,6 +144,27 @@ public class Items {
             list.add(i);
         }
         return list;
+    }
+    
+    public static Items getByFarId(String farid,String item) throws SQLException{
+        Items i = new Items();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        conn = dbcon.getConnection("system");
+        String sql = "select * from item_info where id like ? and item like ?";
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, farid);
+        stmt.setString(2, item.toLowerCase());
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()) {
+            i.setFarmerid(farid);
+            i.setCategoryid(rs.getString("cat_id"));
+            i.setItem(rs.getString("item"));
+            i.setQuantity(rs.getString("quantity"));
+            i.setPrice(rs.getString("ppkg"));
+            i.setDate(rs.getString("date"));
+        }
+        return i;
     }
 
 }

@@ -34,6 +34,7 @@ public class ApplicationConfig extends Application {
         resources.add(REST.FetchFarmByIdResource.class);
         resources.add(REST.FetchItemResource.class);
         resources.add(REST.FetchUserByIdResource.class);
+        resources.add(REST.GetItemResource.class);
         resources.add(REST.InsertFarmerResource.class);
         resources.add(REST.InsertItemResource.class);
         resources.add(REST.InsertUserResource.class);
